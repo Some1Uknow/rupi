@@ -108,7 +108,6 @@ const landingHtml = String.raw`
 				<div class="hero-grid" aria-hidden="true"></div>
 
 				<div class="hero-content container">
-					<span class="eyebrow reveal" data-d="0">// Stellar USDC invoices</span>
 					<h1 class="reveal" data-d="1">
 						<span>Earn in <span class="stellar-word"><img src="/assets/stellar-logo-black.png" alt="Stellar" /></span>.</span>
 						<span class="headline-line">Get paid in INR.</span>
