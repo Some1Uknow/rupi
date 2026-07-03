@@ -26,7 +26,7 @@ const landingHtml = String.raw`
 			<nav class="nav container">
 				<a href="#top" class="brand" aria-label="Rupi home">
 					<span class="brand-chip" aria-hidden="true">
-						${icon("IndianRupee")}
+						<img src="/brand-kit/rupi-logo.png" alt="" class="brand-logo-img" />
 					</span>
 					<span class="brand-word">Rupi</span>
 				</a>
@@ -159,7 +159,10 @@ const landingHtml = String.raw`
 
 					<div class="console rupi-app">
 						<aside class="rupi-app-sidebar">
-							<div class="rupi-app-logo"><span>R</span>Rupi</div>
+							<div class="rupi-app-logo">
+								<img src="/brand-kit/rupi-logo.png" alt="" class="rupi-app-logo-img" />
+								<span>Rupi</span>
+							</div>
 							<div class="rupi-app-nav-indicator" aria-hidden="true"></div>
 							<div class="rupi-app-nav nav-dashboard">${icon("LayoutDashboard")}Dashboard</div>
 							<div class="rupi-app-nav nav-invoices">${icon("ReceiptText")}Invoices</div>
@@ -476,9 +479,9 @@ const landingHtml = String.raw`
 			<div class="container foot-grid">
 					<div class="foot-brand">
 						<a href="#top" class="brand">
-							<span class="brand-chip"
-								>${icon("IndianRupee")}</span
-							>
+							<span class="brand-chip">
+								<img src="/brand-kit/rupi-logo.png" alt="" class="brand-logo-img" />
+							</span>
 							<span class="brand-word light">Rupi</span>
 						</a>
 						<p>USD invoices, Stellar USDC payments, and INR cash-out for cross-border work.</p>

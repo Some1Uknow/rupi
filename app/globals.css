@@ -184,13 +184,16 @@ a {
 	width: 34px;
 	height: 34px;
 	border-radius: 10px;
-	background: var(--ink);
 	display: grid;
 	place-items: center;
+	overflow: hidden;
+	flex: 0 0 auto;
 }
-.brand-chip svg {
-	width: 20px;
-	height: 20px;
+.brand-logo-img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 .brand-word {
 	font-size: 21px;
@@ -467,15 +470,12 @@ a {
 	font-weight: 500;
 	margin-bottom: 16px;
 }
-.rupi-app-logo span {
+.rupi-app-logo-img {
 	width: 26px;
 	height: 26px;
 	border-radius: 8px;
-	background: var(--ink);
-	color: var(--lime);
-	display: grid;
-	place-items: center;
-	font-size: 13px;
+	display: block;
+	object-fit: cover;
 }
 .rupi-app-nav {
 	border-radius: 8px;
@@ -1608,6 +1608,11 @@ a {
 	margin-top: 16px;
 	max-width: 240px;
 	line-height: 1.6;
+}
+.footer .brand-chip {
+	width: 36px;
+	height: 36px;
+	border-radius: 11px;
 }
 .status-line {
 	display: flex;
