@@ -178,7 +178,7 @@ a {
 .brand {
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: 7px;
 }
 .brand-chip {
 	width: 34px;
@@ -464,7 +464,7 @@ a {
 .rupi-app-logo {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 6px;
 	font-family: "Clash Grotesk", "Satoshi", sans-serif;
 	font-size: 16px;
 	font-weight: 500;
