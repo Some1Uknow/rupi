@@ -113,9 +113,7 @@ const landingHtml = String.raw`
 						<span class="headline-line">Get paid in INR.</span>
 					</h1>
 					<p class="hero-sub reveal" data-d="2">
-						Rupi lets freelancers and remote workers send USD invoices, receive
-						Stellar USDC, track payments automatically, and move funds to INR
-						when they need to.
+						Get paid globally in Stellar. Cash out to your Indian bank account.
 					</p>
 
 					<div class="hero-actions reveal" data-d="3">
@@ -438,6 +436,7 @@ const landingHtml = String.raw`
 					<span class="eyebrow">Join waitlist</span>
 					<h2>Get early access to Rupi</h2>
 					<p>Be first to try USD invoices, Stellar USDC payment tracking, yield, and INR cash-out.</p>
+					<p class="waitlist-count" id="waitlistCount" aria-live="polite"></p>
 					<form class="waitlist-form" id="waitlistForm">
 						<input name="name" type="text" placeholder="Name optional" autocomplete="name" />
 						<input name="email" type="email" placeholder="Email address" autocomplete="email" required />

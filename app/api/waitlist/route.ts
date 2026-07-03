@@ -26,6 +26,53 @@ function normalizeEmail(value: unknown) {
   return String(value || "").trim().toLowerCase();
 }
 
+async function ensureWaitlistTable(db: Pool) {
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS waitlist_signups (
+      id BIGSERIAL PRIMARY KEY,
+      email TEXT NOT NULL UNIQUE,
+      name TEXT,
+      source TEXT NOT NULL DEFAULT 'landing_page',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+}
+
+async function getWaitlistCount(db: Pool) {
+  const result = await db.query<{ count: string }>(
+    "SELECT COUNT(*)::text AS count FROM waitlist_signups",
+  );
+  return Number(result.rows[0]?.count || "0");
+}
+
+function waitlistErrorResponse(error: unknown) {
+  const message =
+    error instanceof Error && error.message === "DATABASE_URL is not configured."
+      ? error.message
+      : "Could not save waitlist signup.";
+  const status = message === "DATABASE_URL is not configured." ? 500 : 503;
+
+  return NextResponse.json({ error: message }, { status });
+}
+
+export async function GET() {
+  try {
+    const db = getPool();
+    await ensureWaitlistTable(db);
+    const count = await getWaitlistCount(db);
+
+    return NextResponse.json({ count });
+  } catch (error) {
+    const message =
+      error instanceof Error && error.message === "DATABASE_URL is not configured."
+        ? error.message
+        : "Could not load waitlist count.";
+    const status = message === "DATABASE_URL is not configured." ? 500 : 503;
+
+    return NextResponse.json({ error: message }, { status });
+  }
+}
+
 export async function POST(request: Request) {
   let body: { email?: unknown; name?: unknown; source?: unknown };
 
@@ -45,15 +92,7 @@ export async function POST(request: Request) {
 
   try {
     const db = getPool();
-    await db.query(`
-      CREATE TABLE IF NOT EXISTS waitlist_signups (
-        id BIGSERIAL PRIMARY KEY,
-        email TEXT NOT NULL UNIQUE,
-        name TEXT,
-        source TEXT NOT NULL DEFAULT 'landing_page',
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `);
+    await ensureWaitlistTable(db);
 
     await db.query(
       `
@@ -63,15 +102,10 @@ export async function POST(request: Request) {
       `,
       [email, name, source],
     );
+    const count = await getWaitlistCount(db);
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, count });
   } catch (error) {
-    const message =
-      error instanceof Error && error.message === "DATABASE_URL is not configured."
-        ? error.message
-        : "Could not save waitlist signup.";
-    const status = message === "DATABASE_URL is not configured." ? 500 : 503;
-
-    return NextResponse.json({ error: message }, { status });
+    return waitlistErrorResponse(error);
   }
 }

@@ -6,7 +6,30 @@ export default function LandingInteractions() {
   useEffect(() => {
     const form = document.getElementById("waitlistForm") as HTMLFormElement | null;
     const message = document.getElementById("waitlistMessage");
+    const countEl = document.getElementById("waitlistCount");
     if (!form || !message) return;
+
+    const setWaitlistCount = (count: number) => {
+      if (!countEl) return;
+      countEl.textContent = `${count.toLocaleString("en-US")} joined the waitlist`;
+    };
+
+    const loadWaitlistCount = async () => {
+      if (!countEl) return;
+
+      try {
+        const response = await fetch("/api/waitlist", { method: "GET" });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || typeof result.count !== "number") {
+          throw new Error("Could not load waitlist count.");
+        }
+
+        setWaitlistCount(result.count);
+      } catch {
+        countEl.textContent = "";
+      }
+    };
 
     const onSubmit = async (event: SubmitEvent) => {
       event.preventDefault();
@@ -41,6 +64,11 @@ export default function LandingInteractions() {
         form.reset();
         message.classList.add("success");
         message.textContent = "You are on the waitlist. We will reach out when Rupi is ready.";
+        if (typeof result.count === "number") {
+          setWaitlistCount(result.count);
+        } else {
+          await loadWaitlistCount();
+        }
       } catch (error) {
         message.classList.add("error");
         message.textContent =
@@ -53,6 +81,7 @@ export default function LandingInteractions() {
       }
     };
 
+    void loadWaitlistCount();
     form.addEventListener("submit", onSubmit);
     return () => {
       form.removeEventListener("submit", onSubmit);
