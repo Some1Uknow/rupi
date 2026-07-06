@@ -5,6 +5,8 @@ const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://rupi.in";
 const title = "Rupi — USDC invoices for Indian freelancers and remote workers";
 const description =
   "Create USD invoices, get paid in Stellar USDC, track payments automatically, earn optional yield, and cash out to INR with Rupi.";
+const ogImagePath = "/brand-kit/og.jpg";
+const ogImageUrl = new URL(ogImagePath, siteUrl).toString();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -27,10 +29,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/brand-kit/og.png",
-        width: 1731,
-        height: 909,
-        alt: "Rupi social preview",
+        url: ogImagePath,
+        secureUrl: ogImageUrl,
+        width: 1200,
+        height: 630,
+        alt: "Rupi preview showing Stellar invoicing and INR cash-out",
+        type: "image/jpeg",
       },
     ],
   },
@@ -38,7 +42,16 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/brand-kit/og.png"],
+    images: [
+      {
+        url: ogImagePath,
+        secureUrl: ogImageUrl,
+        width: 1200,
+        height: 630,
+        alt: "Rupi preview showing Stellar invoicing and INR cash-out",
+        type: "image/jpeg",
+      },
+    ],
   },
 };
 
