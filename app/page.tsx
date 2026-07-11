@@ -65,6 +65,7 @@ const landingHtml = String.raw`
 						</div>
 					</div>
 					<a class="nav-link" href="#features">Invoices</a>
+					<a class="nav-link" href="/docs">Docs</a>
 					<a class="nav-link" href="#pricing">Access</a>
 					<a class="nav-link" href="#how">How it works</a>
 				</div>
@@ -97,6 +98,7 @@ const landingHtml = String.raw`
 
 			<div class="mobile-sheet" id="mobileSheet">
 				<a href="#features">Services</a>
+				<a href="/docs">Docs</a>
 				<a href="#how">How it works</a>
 				<a href="#pricing" class="pill pill-ink sheet-cta">Join Waitlist</a>
 			</div>
