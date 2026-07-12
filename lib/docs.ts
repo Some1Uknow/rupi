@@ -1,61 +1,29 @@
-export const testnetContracts = {
-  blendPool: {
-    label: "Blend Pool V2",
-    value: "CCEBVDYM32YNYCVNRXQKDFFPISJJCV557CDZEIRBEE4NCV4KHPQ44HGF",
-    detail: "Soroban pool contract used for Rupi Yield deposits and withdrawals.",
-  },
-  usdcToken: {
-    label: "Blend Testnet USDC token",
-    value: "CAQCFVLOBK5GIULPNZRGATJJMIZL5BSP7X5YJVMGCPTUEPFM4AVSRCJU",
-    detail: "Soroban token contract for the Testnet USDC reserve used by Blend.",
-  },
-  usdcIssuer: {
-    label: "Blend Testnet USDC issuer",
-    value: "GATALTGTWIOT6BUDBCZM3Q4OQ4BO2COLOAZ7IYSKPLC2PMSOPPGF5V56",
-    detail: "Classic Stellar asset issuer. This is an account address, not a smart contract.",
-  },
-} as const;
+export const docsMarkdown = `# Rupi Mainnet documentation
 
-export const formContractAddresses = [testnetContracts.blendPool.value, testnetContracts.usdcToken.value] as const;
+Rupi is a Mainnet payment workflow for verified Indian individuals and remote workers.
 
-export const docsMarkdown = `# Rupi documentation
+## Supported release scope
 
-Rupi is a Stellar Testnet MVP for global freelancers: create a USD invoice, receive Stellar USDC, optionally supply idle USDC to Blend, and start an INR cash-out.
+- USD-denominated invoices paid in Stellar Mainnet USDC
+- Fireblocks-managed Stellar custody mappings; Rupi does not retain a customer seed phrase
+- Email OTP authentication, mandatory passkey enrollment, and passkey step-up for fund movement
+- Onramp-hosted KYC, tokenized beneficiary setup, signed INR quotes, and verified payout statuses
 
 ## Network
 
-- Network: Stellar Testnet
-- Horizon: https://horizon-testnet.stellar.org
-- Soroban RPC: https://soroban-testnet.stellar.org
-- Network passphrase: Test SDF Network ; September 2015
+- Network: Stellar Mainnet
+- Horizon: configured by the deployment
+- Asset: USDC classic asset, issuer configured by the deployment and shown on each payment link
 
-## Smart contract addresses (Testnet)
+## Invoice lifecycle
 
-For a form that accepts multiple smart contract addresses, enter these two Soroban contract IDs:
+Rupi creates an expiring payment link with a unique 128-bit public slug and a unique Stellar memo. A scheduled worker advances a durable Horizon cursor for each wallet and validates operation ID, destination, issuer, amount, memo, transaction success, and ledger time. Public payment reads are side-effect-free.
 
-1. Blend Pool V2: ${testnetContracts.blendPool.value}
-2. Blend Testnet USDC token: ${testnetContracts.usdcToken.value}
+## Cash-out lifecycle
 
-Rupi does not deploy a custom smart contract in this MVP. It uses the Blend Pool V2 contract for Yield and native Stellar payments for invoices. The Testnet USDC classic-asset issuer is ${testnetContracts.usdcIssuer.value}; it is an account address, not a contract.
+Cash-out is available only to eligible verified users during staged rollout. The user receives a provider quote, reviews all fees including Rupi's disclosed 0.5% fee, completes a passkey step-up bound to amount and idempotency key, then Rupi creates an immutable Onramp order before asking Fireblocks to send the exact USDC amount and memo. A cash-out is marked PAID only after verified Onramp provider status.
 
-## Product flows
+## Not in this release
 
-### Invoices and payments
-
-Rupi creates USD-denominated invoice links. The payer sends the configured Testnet USDC asset to the app-managed Stellar wallet with the invoice memo. Rupi reconciles the payment through Horizon and marks the invoice paid.
-
-### Yield
-
-Users explicitly supply or withdraw Testnet USDC through Blend Pool V2. Rupi records the resulting position and reads the pool reserve state. Yield is variable and Testnet-only.
-
-### Cash out
-
-Rupi sends Testnet USDC to a configured Testnet sink account, then shows INR payout states for the off-ramp flow. The USDC transfer is real on Testnet; INR payout statuses are simulated in this MVP.
-
-## Safety
-
-- Stellar Testnet resets periodically.
-- Never use a Testnet key or address on mainnet.
-- Rupi wallet secrets are encrypted server-side using AES-256-GCM.
-- Mainnet remains disabled unless explicitly configured.
+Yield, Blend integration, arbitrary withdrawals, business onboarding, international users, and non-INR settlement are not available in the initial Mainnet release.
 `;

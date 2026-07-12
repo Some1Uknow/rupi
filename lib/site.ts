@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 
-export const PRODUCTION_URL = "https://rupi.raghav.codes";
-
 export const siteConfig = {
   name: "Rupi",
   title: "Rupi — USDC invoices for Indian freelancers and remote workers",
   description:
-    "Create USD invoices, get paid in Stellar USDC, track payments automatically, earn optional yield, and cash out to INR with Rupi.",
+    "Create USD invoices, receive Stellar Mainnet USDC, track confirmed payments, and cash out to INR through Onramp with Rupi.",
   locale: "en_US",
 } as const;
 
@@ -26,7 +24,14 @@ export function getSiteUrl(): string {
     return "http://localhost:3000";
   }
 
-  return PRODUCTION_URL;
+  // Static route analysis runs before a deployment's runtime secret set is
+  // injected. This value is never accepted at runtime: instrumentation and
+  // production startup validation still require NEXT_PUBLIC_APP_URL.
+  if (process.env.NEXT_PHASE === "phase-production-build") {
+    return "https://build.rupi.invalid";
+  }
+
+  throw new Error("NEXT_PUBLIC_APP_URL must be configured outside local development.");
 }
 
 type CreateMetadataOptions = {

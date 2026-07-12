@@ -1,0 +1,3 @@
+export default function CustodyRiskPage() {
+  return <><h1>Custody and Risk Disclosure</h1><p>Rupi does not generate, retain, decrypt, or sign with a customer Stellar private key. Each customer wallet is mapped to a Fireblocks vault account, and eligible movements are initiated through approved custody policies.</p><p>Digital assets and bank settlement carry operational, market, network, provider, compliance, and loss risks. A passkey step-up is required for cash-out and other sensitive actions, but it does not eliminate all risk. Cash-out may be held, rejected, delayed, refunded, or require manual review.</p><p>Yield products and arbitrary external withdrawals are not offered in the initial Mainnet release.</p></>;
+}

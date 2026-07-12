@@ -1,0 +1,3 @@
+export default function RefundsPage() {
+  return <><h1>Refund and Held-Funds Policy</h1><p>Rupi never retries a cash-out whose custody submission outcome is unknown. It first reconciles Fireblocks and Stellar status, then Onramp order status. Orders with a mismatch, compliance hold, provider rejection, or ambiguous submission are marked clearly and may be reviewed manually.</p><p>Refunds are requested through Onramp where supported and appear as <code>REFUND_PENDING</code> until verified. Do not send a second transfer to resolve a held or unknown order; use the order ID when contacting support.</p></>;
+}

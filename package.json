@@ -2,16 +2,35 @@
   "name": "rupi",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "npm@11.4.2",
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "db:migrate": "node scripts/migrate.mjs",
+    "onramp:sync": "tsx scripts/sync-onramp-config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/**/*.test.ts",
+    "audit:prod": "npm audit --omit=dev",
+    "security:check": "node scripts/security-check.mjs",
+    "ci": "npm run security:check && npm run typecheck && npm run test && npm run audit:prod && npm run build"
   },
   "dependencies": {
+    "@sentry/nextjs": "^10.65.0",
+    "@simplewebauthn/server": "^13.3.2",
+    "@stellar/stellar-sdk": "^16.0.1",
+    "better-auth": "^1.6.23",
+    "kysely": "^0.29.3",
     "lucide": "^1.23.0",
     "lucide-react": "^1.24.0",
-    "next": "^15.3.5",
+    "next": "^15.5.20",
     "pg": "^8.22.0",
+    "postcss": "^8.5.17",
+    "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -20,6 +39,10 @@
     "@types/pg": "^8.20.0",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
+    "tsx": "^4.20.5",
     "typescript": "^5.7.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.17"
   }
 }

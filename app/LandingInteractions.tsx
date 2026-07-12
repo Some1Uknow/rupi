@@ -37,6 +37,8 @@ export default function LandingInteractions() {
       const formData = new FormData(form);
       const email = String(formData.get("email") || "").trim();
       const name = String(formData.get("name") || "").trim();
+      const consent = formData.get("consent") === "on";
+      const website = String(formData.get("website") || "");
 
       message.className = "waitlist-message";
       message.textContent = "";
@@ -55,7 +57,7 @@ export default function LandingInteractions() {
         const response = await fetch("/api/waitlist", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, name, source: "landing_page" }),
+          body: JSON.stringify({ email, name, consent, website, source: "landing_page" }),
         });
         const result = await response.json().catch(() => ({}));
         if (!response.ok) {

@@ -1,5 +1,15 @@
 node_modules/
 dist/
-.env    
-.env.local
+.env*
+!.env.example
+*.pem
+*.key
+tsconfig.tsbuildinfo
 .next/
+.superstack/
+# Legacy Testnet/demo render sources and narration are deliberately excluded
+# from immutable Mainnet deployment revisions.
+video/
+public/audio/rupi-demo/
+public/audio/voiceover.mp3
+public/audio/inspired-ambient.mp3

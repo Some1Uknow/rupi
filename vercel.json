@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    { "path": "/api/cron/stellar-reconcile", "schedule": "*/5 * * * *" },
+    { "path": "/api/cron/provider-events", "schedule": "*/5 * * * *" }
+  ]
+}
